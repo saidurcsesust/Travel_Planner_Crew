@@ -1,27 +1,31 @@
-2026-02-26 13:56:01: task_name="destination_research_task", task="Use only Serper-powered web search to research cox's bazar, bangladesh for dates 2026-06-10 to 2026-06-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: beaches, local food, temples, low-cost activities.
+2026-02-26 14:45:02: task_name="destination_research_task", task="Use only Serper-powered web search to research cox's bazar, bangladesh for dates 2026-04-10 to 2026-04-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: culture, food, walking, low-cost local experiences.
 Rules: - Use at most 1-2 Serper searches unless information is missing. - Do not invent attractions or details. - If a fact is uncertain, explicitly label it as an assumption. - Provide concise source references (domain names or URLs) for major claims. - Keep response short to reduce token usage.
 ", agent="Destination Research Specialist
 ", status="started"
-2026-02-26 13:56:06: task_name="destination_research_task", task="Use only Serper-powered web search to research cox's bazar, bangladesh for dates 2026-06-10 to 2026-06-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: beaches, local food, temples, low-cost activities.
+2026-02-26 14:45:10: task_name="destination_research_task", task="Use only Serper-powered web search to research cox's bazar, bangladesh for dates 2026-04-10 to 2026-04-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: culture, food, walking, low-cost local experiences.
 Rules: - Use at most 1-2 Serper searches unless information is missing. - Do not invent attractions or details. - If a fact is uncertain, explicitly label it as an assumption. - Provide concise source references (domain names or URLs) for major claims. - Keep response short to reduce token usage.
 ", agent="Destination Research Specialist
 ", status="completed", output="## Destination Overview
 * Top highlights:
   * Laboni Point Sea Beach
   * Sugondha Sea Beach
-  * Radiant Fish World
-  * Himchari Fountain and Hill
+  * Himchari National Park
+  * Inani Beach
 * Practical notes:
-  Transport: Private transportation and hop-on hop-off bus tours are available.
-  Timing: The best time to visit Cox's Bazar is during the dry season, from October to February.
-  Caveats: It is recommended to check the weather forecast before visiting, as the area can be affected by monsoons and cyclones.
-  Food: Local cuisine is available, including seafood and traditional Bangladeshi dishes.
-  Low-cost activities: Visiting the beach, exploring"
-2026-02-26 13:56:06: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for cox's bazar, bangladesh within total budget 2000.0 USD for 5 days.
+  * Transport: Available boat rentals and bike rentals for local transport
+  * Timing: Best time to visit is during the dry season, from October to February
+  * Caveats: Weather implications may affect beach activities, and crowd levels may be high during peak season
+  * Food areas: Fresh seafood available at seaside restaurants, and local delicacies at hidden spots
+  * Low-cost local experiences: Walking tours, cultural exchange with the Rakhine community, and exploration of coastal villages
+Source references: 
+[tripadvisor.com](http://tripadvisor.com)
+[gotouch.space](http://gotouch.space)
+[secretsbangladesh.com](http://secretsbangladesh.com)"
+2026-02-26 14:45:10: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for cox's bazar, bangladesh within total budget 2000.0 USD for 5 days.
 Requirements: - Use calculator logic for all arithmetic. - Include category-wise costs: Accommodation, Food, Transport, Activities, Contingency. - Show per-day and total estimates. - Avoid fake precision; if uncertain, provide conservative ranges and assumptions. - State whether the plan is under, at, or over budget. - Keep explanation concise (max ~120 words excluding table).
 ", agent="Travel Budget Planner
 ", status="started"
-2026-02-26 13:56:07: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for cox's bazar, bangladesh within total budget 2000.0 USD for 5 days.
+2026-02-26 14:45:10: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for cox's bazar, bangladesh within total budget 2000.0 USD for 5 days.
 Requirements: - Use calculator logic for all arithmetic. - Include category-wise costs: Accommodation, Food, Transport, Activities, Contingency. - Show per-day and total estimates. - Avoid fake precision; if uncertain, provide conservative ranges and assumptions. - State whether the plan is under, at, or over budget. - Keep explanation concise (max ~120 words excluding table).
 ", agent="Travel Budget Planner
 ", status="completed", output="## Budget Breakdown
@@ -33,116 +37,257 @@ Requirements: - Use calculator logic for all arithmetic. - Include category-wise
 | Activities | 200.00 | 10% of total budget for 5 days |
 | Contingency | 200.00 | 10% of total budget for unexpected expenses |
 | Subtotal | 1800.00 | Sum before contingency |
-| Grand Total | 2000"
-2026-02-26 13:56:07: task_name="itinerary_designer_task", task="Create a day-wise itinerary for cox's bazar, bangladesh from 2026-06-10 to 2026-06-14 aligned to preferences "beaches, local food, temples, low-cost activities" and budget constraints from context.
+| Grand Total | 2000.00 | Final total trip estimate |
+| Budget Status | At budget | Compared with 2000.0 USD |"
+2026-02-26 14:45:10: task_name="itinerary_designer_task", task="Create a day-wise itinerary for cox's bazar, bangladesh from 2026-04-10 to 2026-04-14 aligned to preferences "culture, food, walking, low-cost local experiences" and budget constraints from context.
 Requirements: - One realistic plan per day with short morning/afternoon/evening blocks. - Avoid time/place conflicts and excessive commuting. - Include at least one low-cost option each day. - Mention estimated daily spend and how it fits the budget in one line. - Keep total itinerary concise.
 ", agent="Day-wise Itinerary Designer
 ", status="started"
-2026-02-26 13:57:08: task_name="itinerary_designer_task", task="Create a day-wise itinerary for cox's bazar, bangladesh from 2026-06-10 to 2026-06-14 aligned to preferences "beaches, local food, temples, low-cost activities" and budget constraints from context.
+2026-02-26 14:45:12: task_name="itinerary_designer_task", task="Create a day-wise itinerary for cox's bazar, bangladesh from 2026-04-10 to 2026-04-14 aligned to preferences "culture, food, walking, low-cost local experiences" and budget constraints from context.
 Requirements: - One realistic plan per day with short morning/afternoon/evening blocks. - Avoid time/place conflicts and excessive commuting. - Include at least one low-cost option each day. - Mention estimated daily spend and how it fits the budget in one line. - Keep total itinerary concise.
 ", agent="Day-wise Itinerary Designer
 ", status="completed", output="## Day-wise Itinerary
-### Day 1: 2026-06-10
-- Morning: Visit Laboni Point Sea Beach (free entry, low-cost activity) from 8:00 AM to 10:00 AM.
-- Afternoon: Explore local food at a traditional Bangladeshi restaurant near the beach from 12:00 PM to 1:30 PM.
-- Evening: Walk along the beach and enjoy the sunset from 5:00 PM to 6:30 PM.
-Estimated daily spend: BDT 300, fitting the budget with accommodation, food, and low-cost activities.
+### Day 1: 2026-04-10
+- Morning: 8:00 AM - 10:00 AM, Walking tour of Laboni Point Sea Beach to experience local culture and seafood.
+- Afternoon: 12:00 PM - 2:00 PM, Visit seaside restaurants for fresh seafood, and explore hidden spots for local delicacies.
+- Evening: 5:00 PM - 7:00 PM, Cultural exchange with the Rakhine community.
+Estimated daily spend: $360, which fits the budget as it's below the daily average of $400.
 
-### Day 2: 2026-06-11
--"
-2026-02-26 13:57:08: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
+### Day 2: 2026-04-11
+- Morning: 8:00 AM - 10:00 AM, Explore Sugondha Sea Beach and its surroundings.
+- Afternoon: 12:00 PM - 2:00 PM, Low-cost local experience: Walking tour of coastal villages.
+- Evening: 5:00 PM - 7:00 PM, Relax at the beach and enjoy local street food.
+Estimated daily spend: $320, which is within the daily budget.
+
+### Day 3: 2026-04-12
+- Morning: 8:00 AM - 10:00 AM, Visit Himchari National Park for a hike and to enjoy nature.
+- Afternoon: 12:00 PM - 2:00 PM, Have lunch at a local eatery and try traditional dishes.
+- Evening: 5:00 PM - 7:00 PM, Explore bike rentals for a ride along the coast.
+Estimated daily spend: $340, aligning with the budget plan.
+
+### Day 4: 2026-04-13
+- Morning: 8:00 AM - 10:00 AM, Inani Beach visit for swimming and sunbathing.
+- Afternoon: 12:00 PM - 2:00 PM, Low-cost activity: Boat rental to explore nearby islands.
+- Evening: 5:00 PM - 7:00 PM, Enjoy seafood at a local restaurant.
+Estimated daily spend: $380, staying within the budget limits.
+
+### Day 5: 2026-04-14
+- Morning: 8:00 AM - 10:00 AM, Visit local markets for souvenir shopping.
+- Afternoon: 12:00 PM - 2:00 PM, Experience the local cuisine at a hidden spot.
+- Evening: 5:00 PM - 7:00 PM, Reflect on the trip and prepare for departure.
+Estimated daily spend: $300, fitting the budget for a concluding day.
+
+This itinerary provides a balanced mix of culture, food, walking, and low-cost local experiences while adhering to the budget constraints."
+2026-02-26 14:45:12: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
 Validation checklist: - Budget totals are internally consistent. - Itinerary activities are plausible for each day and not conflicting. - Assumptions and uncertainties are clearly called out. - If total exceeds budget, propose concrete adjustments.
-Then produce one final structured markdown output with sections: - Travel Plan: cox's bazar, bangladesh - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
+Then produce one final structured markdown output with sections: - Travel Plan: cox's bazar, bangladesh - Destination Overview - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
 ", agent="Travel Plan Validation Auditor
 ", status="started"
-2026-02-26 13:57:08: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
+2026-02-26 14:45:13: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
 Validation checklist: - Budget totals are internally consistent. - Itinerary activities are plausible for each day and not conflicting. - Assumptions and uncertainties are clearly called out. - If total exceeds budget, propose concrete adjustments.
-Then produce one final structured markdown output with sections: - Travel Plan: cox's bazar, bangladesh - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
+Then produce one final structured markdown output with sections: - Travel Plan: cox's bazar, bangladesh - Destination Overview - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
 ", agent="Travel Plan Validation Auditor
 ", status="completed", output="# Travel Plan: Cox's Bazar, Bangladesh 
-> Trip Window: 2026-06-10 to 2026-06-14 
-> Budget Cap: 2000 BDT 
+> Trip Window: 2026-04-10 to 2026-04-14 
+> Budget Cap: $2000 USD
+
+---
+## Destination Overview
+- Highlights:
+  * Laboni Point Sea Beach
+  * Sugondha Sea Beach
+  * Himchari National Park
+  * Inani Beach
+- Practical notes:
+  * Transport: Available boat rentals and bike rentals for local transport
+  * Timing: Best time to visit is during the dry season, from October to February
+  * Caveats: Weather implications may affect beach activities, and crowd levels may be high during peak season
+  * Food areas: Fresh seafood available at seaside restaurants, and local delicacies at hidden spots
+  * Low-cost local experiences: Walking tours, cultural exchange with the Rakhine community, and exploration of coastal villages
 
 ---
 ## Budget Breakdown
 | Category | Amount | Note |
 | --- | ---: | --- |
-| Accommodation | 800.00 | 40% of total budget for 5 days |
-| Food | 600.00 | 30% of total budget for 5 days |
-| Transport | 200.00 | 10% of total budget for 5 days |
-| Activities | 200.00 | 10% of total budget for 5 days |
-|"
-2026-02-26 14:00:59: task_name="destination_research_task", task="Use only Serper-powered web search to research cox's bazar, bangladesh for dates 2026-06-10 to 2026-06-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: beaches, local food, temples, low-cost activities.
+| Accommodation | $800.00 | 40% of total budget for 5 days |
+| Food | $600.00 | 30% of total budget for 5 days |
+| Transport | $200.00 | 10% of total budget for 5 days |
+| Activities | $200.00 | 10% of total budget for 5 days |
+| Total | $1800.00 | Sum of all expenses |
+| Contingency | $200.00 | 10% of total budget for unexpected expenses |
+| Grand Total | $2000.00 | Final total trip estimate |
+
+---
+## Day-wise Itinerary
+### Day 1: 2026-04-10
+- Morning: 8:00 AM - 10:00 AM, Walking tour of Laboni Point Sea Beach to experience local culture and seafood.
+- Afternoon: 12:00 PM - 2:00 PM, Visit seaside restaurants for fresh seafood, and explore hidden spots for local delicacies.
+- Evening: 5:00 PM - 7:00 PM, Cultural exchange with the Rakhine community.
+Estimated daily spend: $360
+
+### Day 2: 2026-04-11
+- Morning: 8:00 AM - 10:00 AM, Explore Sugondha Sea Beach and its surroundings.
+- Afternoon: 12:00 PM - 2:00 PM, Low-cost local experience: Walking tour of coastal villages.
+- Evening: 5:00 PM - 7:00 PM, Relax at the beach and enjoy local street food.
+Estimated daily spend: $320
+
+### Day 3: 2026-04-12
+- Morning: 8:00 AM - 10:00 AM, Visit Himchari National Park for a hike and to enjoy nature.
+- Afternoon: 12:00 PM - 2:00 PM, Have lunch at a local eatery and try traditional dishes.
+- Evening: 5:00 PM - 7:00 PM, Explore bike rentals for a ride along the coast.
+Estimated daily spend: $340
+
+### Day 4: 2026-04-13
+- Morning: 8:00 AM - 10:00 AM, Inani Beach visit for swimming and sunbathing.
+- Afternoon: 12:00 PM - 2:00 PM, Low-cost activity:"
+2026-02-26 15:00:52: task_name="destination_research_task", task="Use only Serper-powered web search to research Saudi Arab for dates 2026-04-10 to 2026-04-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: culture, food, walking, low-cost local experiences.
 Rules: - Use at most 1-2 Serper searches unless information is missing. - Do not invent attractions or details. - If a fact is uncertain, explicitly label it as an assumption. - Provide concise source references (domain names or URLs) for major claims. - Keep response short to reduce token usage.
 ", agent="Destination Research Specialist
 ", status="started"
-2026-02-26 14:01:02: task_name="destination_research_task", task="Use only Serper-powered web search to research cox's bazar, bangladesh for dates 2026-06-10 to 2026-06-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: beaches, local food, temples, low-cost activities.
+2026-02-26 15:00:58: task_name="destination_research_task", task="Use only Serper-powered web search to research Saudi Arab for dates 2026-04-10 to 2026-04-14. Focus on: top attractions, realistic local transport options, food areas, and date-specific caveats (closures, weather implications, crowd levels if available). Prioritize results that are relevant to the user's preferences: culture, food, walking, low-cost local experiences.
 Rules: - Use at most 1-2 Serper searches unless information is missing. - Do not invent attractions or details. - If a fact is uncertain, explicitly label it as an assumption. - Provide concise source references (domain names or URLs) for major claims. - Keep response short to reduce token usage.
 ", agent="Destination Research Specialist
 ", status="completed", output="## Destination Overview
 * Top highlights:
-  * Himchari National Park
-  * Inani Beach
-  * Lal Kakra Beach
-  * Bazar Beach and the Bazar Lighthouse
+  * Visit the historic downtown area in Al-Balad, Jeddah
+  * Explore the UNESCO-listed Hegra with its 94 monumental Nabatean tombs
+  * Walk through AlUla Old Town's ancient streets
+  * Enjoy the vibrant souks in Riyadh
 * Practical notes:
-  The best times to visit Cox's Bazar for ideal weather are November 19th to March 4th based on average temperature and humidity from NOAA. 
-  Visitors can enjoy attractions such as Bazar Beach and the Bazar Lighthouse. 
-  This area offers a perfect blend of adventure and relaxation. 
-  The longest sea beach in the world, Cox's Bazar is considered Bangladesh's most popular tourist destination.
-  Sources: trip.com, tripadvisor.com"
-2026-02-26 14:01:02: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for cox's bazar, bangladesh within total budget 2000.0 USD for 5 days.
+  Transport: Options include guided tours, budget tours, and small group trips
+  Timing: Check for any date-specific caveats, such as closures or crowd levels, before planning your trip
+  Caveats: Some areas may be restricted or require special permits, so be sure to research and plan ahead
+  Food areas: Try local cuisine, such as traditional Saudi dishes, and explore the food scene in cities like Riyadh and Jeddah
+  Crowd levels: Expect crowds in popular areas, especially during peak travel seasons
+  Sources: tripadvisor.com, viator.com, getyourguide.com, memphistours.com, tourradar.com, lonelyplanet.com, klook.com, exploreworldwide.com, bookmundi.com, budgettravel.ie"
+2026-02-26 15:00:58: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for Saudi Arab within total budget 5000.0 USD for 5 days.
 Requirements: - Use calculator logic for all arithmetic. - Include category-wise costs: Accommodation, Food, Transport, Activities, Contingency. - Show per-day and total estimates. - Avoid fake precision; if uncertain, provide conservative ranges and assumptions. - State whether the plan is under, at, or over budget. - Keep explanation concise (max ~120 words excluding table).
 ", agent="Travel Budget Planner
 ", status="started"
-2026-02-26 14:01:03: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for cox's bazar, bangladesh within total budget 2000.0 USD for 5 days.
+2026-02-26 15:00:59: task_name="budget_planner_task", task="Using destination research context, estimate a realistic trip budget for Saudi Arab within total budget 5000.0 USD for 5 days.
 Requirements: - Use calculator logic for all arithmetic. - Include category-wise costs: Accommodation, Food, Transport, Activities, Contingency. - Show per-day and total estimates. - Avoid fake precision; if uncertain, provide conservative ranges and assumptions. - State whether the plan is under, at, or over budget. - Keep explanation concise (max ~120 words excluding table).
 ", agent="Travel Budget Planner
 ", status="completed", output="## Budget Breakdown
 | Category | Estimated Cost | Rationale |
 | --- | ---: | --- |
-| Accommodation | 800.00 | 40% of total budget for 5 days |
-| Food | 600.00 | 30% of total budget for 5 days |
-| Transport | 200.00 | 10% of total budget for 5 days |
-| Activities | 200.00 | 10% of total budget for 5 days |
-| Contingency | 200.00 | 10% of total budget for unexpected expenses |
-| Subtotal | 1800.00 | Sum before contingency |
-| Grand Total | 2000"
-2026-02-26 14:01:03: task_name="itinerary_designer_task", task="Create a day-wise itinerary for cox's bazar, bangladesh from 2026-06-10 to 2026-06-14 aligned to preferences "beaches, local food, temples, low-cost activities" and budget constraints from context.
+| Accommodation | 3000.0 | 60% of total budget for 5 days |
+| Food | 1000.0 | 20% of total budget for 5 days |
+| Transport | 500.0 | 10% of total budget for 5 days |
+| Activities | 500.0 | 10% of total budget for 5 days |
+| Contingency | 0.0 | No additional contingency fund |
+| Subtotal | 4000.0 | Sum before contingency (if contingency shown separately) |
+| Grand Total | 4000.0 | Final total trip estimate |
+| Budget Status | Under | Compared with 5000.0 USD |"
+2026-02-26 15:00:59: task_name="itinerary_designer_task", task="Create a day-wise itinerary for Saudi Arab from 2026-04-10 to 2026-04-14 aligned to preferences "culture, food, walking, low-cost local experiences" and budget constraints from context.
 Requirements: - One realistic plan per day with short morning/afternoon/evening blocks. - Avoid time/place conflicts and excessive commuting. - Include at least one low-cost option each day. - Mention estimated daily spend and how it fits the budget in one line. - Keep total itinerary concise.
 ", agent="Day-wise Itinerary Designer
 ", status="started"
-2026-02-26 14:01:04: task_name="itinerary_designer_task", task="Create a day-wise itinerary for cox's bazar, bangladesh from 2026-06-10 to 2026-06-14 aligned to preferences "beaches, local food, temples, low-cost activities" and budget constraints from context.
+2026-02-26 15:01:01: task_name="itinerary_designer_task", task="Create a day-wise itinerary for Saudi Arab from 2026-04-10 to 2026-04-14 aligned to preferences "culture, food, walking, low-cost local experiences" and budget constraints from context.
 Requirements: - One realistic plan per day with short morning/afternoon/evening blocks. - Avoid time/place conflicts and excessive commuting. - Include at least one low-cost option each day. - Mention estimated daily spend and how it fits the budget in one line. - Keep total itinerary concise.
 ", agent="Day-wise Itinerary Designer
 ", status="completed", output="## Day-wise Itinerary
-### Day 1: 2026-06-10
-- Morning: Visit Bazar Beach and the Bazar Lighthouse (free entry, low-cost activity), enjoy local street food for breakfast.
-- Afternoon: Explore the local market for souvenirs and try some local cuisine for lunch.
-- Evening: Relax at the beach and watch the sunset.
-Estimated daily spend: 150.00, which fits the budget as it's below the daily average of 400.00.
+### Day 1: 2026-04-10
+* Morning: Explore the historic downtown area in Al-Balad, Jeddah (free walking tour, 9:00 AM - 12:00 PM)
+* Afternoon: Visit the local souk for lunch and shopping (low-cost option, 1:00 PM - 3:00 PM)
+* Evening: Enjoy traditional Saudi cuisine at a local restaurant (6:00 PM - 8:00 PM)
+Estimated daily spend: 200 USD, which fits the budget as it's under the daily allocation of 800 USD.
 
-### Day 2: 2026-06-11
-- Morning: Start with a visit to the Himchari National Park (entry fee: approximately 50."
-2026-02-26 14:01:04: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
+### Day 2: 2026-04-11
+* Morning: Take a guided tour to the UNESCO-listed Hegra (booked through a budget tour operator, 8:00 AM - 12:00 PM, 100 USD)
+* Afternoon: Walk through AlUla Old Town's ancient streets (free, 1:00 PM - 3:00 PM)
+* Evening: Relax at the hotel or explore the local area (6:00 PM - 8:00 PM)
+Estimated daily spend: 250 USD, which fits the budget as it's under the daily allocation of 800 USD.
+
+### Day 3: 2026-04-12
+* Morning: Travel to Riyadh (booked through a budget-friendly transport option, 8:00 AM - 12:00 PM, 50 USD)
+* Afternoon: Explore the vibrant souks in Riyadh (low-cost option, 1:00 PM - 3:00 PM)
+* Evening: Enjoy dinner at a local eatery (6:00 PM - 8:00 PM)
+Estimated daily spend: 220 USD, which fits the budget as it's under the daily allocation of 800 USD.
+
+### Day 4: 2026-04-13
+* Morning: Visit the National Museum of Saudi Arabia (low-cost option, 9:00 AM - 12:00 PM, 10 USD)
+* Afternoon: Take a walking tour of the city (free, 1:00 PM - 3:00 PM)
+* Evening: Experience the local food scene at a traditional restaurant (6:00 PM - 8:00 PM)
+Estimated daily spend: 180 USD, which fits the budget as it's under the daily allocation of 800 USD.
+
+### Day 5: 2026-04-14
+* Morning: Explore the Diriyah historic site (booked through a budget tour operator, 8:00 AM - 12:00 PM, 80 USD)
+* Afternoon: Return to the hotel for check-out and depart (1:00 PM - 3:00 PM)
+* Evening: Depart from Riyadh (6:00 PM)
+Estimated daily spend: 230 USD, which fits the budget as it's under the daily allocation of 800 USD."
+2026-02-26 15:01:01: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
 Validation checklist: - Budget totals are internally consistent. - Itinerary activities are plausible for each day and not conflicting. - Assumptions and uncertainties are clearly called out. - If total exceeds budget, propose concrete adjustments.
-Then produce one final structured markdown output with sections: - Travel Plan: cox's bazar, bangladesh - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
+Then produce one final structured markdown output with sections: - Travel Plan: Saudi Arab - Destination Overview - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
 ", agent="Travel Plan Validation Auditor
 ", status="started"
-2026-02-26 14:02:05: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
+2026-02-26 15:01:02: task_name="validation_task", task="Validate the destination overview, budget plan, and itinerary for consistency, feasibility, and budget alignment.
 Validation checklist: - Budget totals are internally consistent. - Itinerary activities are plausible for each day and not conflicting. - Assumptions and uncertainties are clearly called out. - If total exceeds budget, propose concrete adjustments.
-Then produce one final structured markdown output with sections: - Travel Plan: cox's bazar, bangladesh - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
+Then produce one final structured markdown output with sections: - Travel Plan: Saudi Arab - Destination Overview - Budget Breakdown: Accommodation, Food, Transport, Activities, Total - Day-wise Itinerary - Validation Summary: Budget status, Assumptions, Risk factors
 ", agent="Travel Plan Validation Auditor
-", status="completed", output="# Travel Plan: Cox's Bazar, Bangladesh 
-> Trip Window: 2026-06-10 to 2026-06-14 
-> Budget Cap: 2000 USD 
+", status="completed", output="# Travel Plan: Saudi Arabia 
+> Trip Window: 2026-04-10 to 2026-04-14 
+> Budget Cap: 5000.0 USD 
+
+---
+## Destination Overview
+- Highlights:
+  * Visit the historic downtown area in Al-Balad, Jeddah
+  * Explore the UNESCO-listed Hegra with its 94 monumental Nabatean tombs
+  * Walk through AlUla Old Town's ancient streets
+  * Enjoy the vibrant souks in Riyadh
+- Practical notes:
+  * Transport: Guided tours, budget tours, and small group trips
+  * Timing: Check for date-specific caveats like closures or crowd levels
+  * Caveats: Some areas may be restricted or require special permits
+  * Food areas: Try local cuisine and explore the food scene in cities like Riyadh and Jeddah
+  * Crowd levels: Expect crowds in popular areas, especially during peak travel seasons
 
 ---
 ## Budget Breakdown
 | Category | Amount | Note |
 | --- | ---: | --- |
-| Accommodation | 800.00 | 40% of total budget for 5 days |
-| Food | 600.00 | 30% of total budget for 5 days |
-| Transport | 200.00 | 10% of total budget for 5 days |
-| Activities | 200.00 | 10% of total budget for 5 days |
-| Total"
+| Accommodation | 3000.0 | 60% of total budget for 5 days |
+| Food | 1000.0 | 20% of total budget for 5 days |
+| Transport | 500.0 | 10% of total budget for 5 days |
+| Activities | 500.0 | 10% of total budget for 5 days |
+| Total | 4000.0 | Final total trip estimate |
+
+---
+## Day-wise Itinerary
+### Day 1: 2026-04-10
+- Morning: Explore the historic downtown area in Al-Balad, Jeddah
+- Afternoon: Visit the local souk for lunch and shopping
+- Evening: Enjoy traditional Saudi cuisine at a local restaurant
+- Estimated spend: 200 USD
+
+### Day 2: 2026-04-11
+- Morning: Take a guided tour to the UNESCO-listed Hegra
+- Afternoon: Walk through AlUla Old Town's ancient streets
+- Evening: Relax at the hotel or explore the local area
+- Estimated spend: 250 USD
+
+### Day 3: 2026-04-12
+- Morning: Travel to Riyadh
+- Afternoon: Explore the vibrant souks in Riyadh
+- Evening: Enjoy dinner at a local eatery
+- Estimated spend: 220 USD
+
+### Day 4: 2026-04-13
+- Morning: Visit the National Museum of Saudi Arabia
+- Afternoon: Take a walking tour of the city
+- Evening: Experience the local food scene at a traditional restaurant
+- Estimated spend: 180 USD
+
+### Day 5: 2026-04-14
+- Morning: Explore the Diriyah historic site
+- Afternoon: Return to the hotel for check-out and depart
+- Evening: Depart from Riyadh
+- Estimated spend: 230 USD
+
+---
+## Validation Summary
+| Check | Result |
+| --- | --- |
+| Budget status | Under |
+| Assumptions | Budget-friendly options, low-cost activities, and moderate spending on food and transport |
+| Risk factors | Potential for unexpected expenses, changes in crowd levels or closures, and variability in food and transport costs |"

@@ -72,6 +72,7 @@ validation_task:
 
     Then produce one final structured markdown output with sections:
     - Travel Plan: {destination}
+    - Destination Overview
     - Budget Breakdown: Accommodation, Food, Transport, Activities, Total
     - Day-wise Itinerary
     - Validation Summary: Budget status, Assumptions, Risk factors
@@ -86,6 +87,10 @@ validation_task:
     # Travel Plan: <Destination>
     > Trip Window: <travel_dates>
     > Budget Cap: <budget> <currency>
+    ---
+    ## Destination Overview
+    - Highlights (max 4 bullets)
+    - Practical notes (transport/timing/caveats)
     ---
     ## Budget Breakdown
     | Category | Amount | Note |

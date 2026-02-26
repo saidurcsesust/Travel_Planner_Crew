@@ -1,18 +1,18 @@
 {
   "days": {
     "2026-02-26": {
-      "requests": 4,
-      "tokens": 1800
+      "requests": 60,
+      "tokens": 1600
     }
   },
   "minutes": {
-    "2026-02-26 13:57": {
-      "requests": 2,
-      "tokens": 900
+    "2026-02-26 14:45": {
+      "requests": 30,
+      "tokens": 800
     },
-    "2026-02-26 14:02": {
-      "requests": 2,
-      "tokens": 900
+    "2026-02-26 15:01": {
+      "requests": 30,
+      "tokens": 800
     }
   }
 }

@@ -31,10 +31,14 @@ def _ensure_output_file_exists() -> None:
         return
     output_path.write_text(
         (
-            "Travel Plan: <Destination>\n"
-            "Budget Breakdown: Accommodation, Food, Transport, Activities, Total\n"
-            "Day-wise Itinerary\n"
-            "Validation Summary: Budget status, Assumptions, Risk factors\n"
+            "# Travel Plan: <Destination>\n\n"
+            "## Destination Overview\n\n"
+            "## Budget Breakdown\n\n"
+            "## Day-wise Itinerary\n\n"
+            "## Validation Summary\n"
+            "- Budget status: <Under / At / Over budget>\n"
+            "- Assumptions: <key assumptions>\n"
+            "- Risk factors: <key risks>\n"
         ),
         encoding="utf-8",
     )
@@ -51,15 +55,19 @@ def _ensure_required_output_sections(inputs: dict) -> None:
     content = output_path.read_text(encoding="utf-8") if output_path.exists() else ""
 
     required_sections = [
-        (r"(?im)^\s*travel\s*plan\s*:", f"Travel Plan: {inputs.get('destination', '<Destination>')}"),
         (
-            r"(?im)^\s*budget\s*breakdown\s*:",
-            "Budget Breakdown: Accommodation, Food, Transport, Activities, Total",
+            r"(?im)^\s*#?\s*travel\s*plan\s*:",
+            f"# Travel Plan: {inputs.get('destination', '<Destination>')}",
         ),
-        (r"(?im)^\s*day-wise\s*itinerary\s*:?", "Day-wise Itinerary"),
+        (r"(?im)^\s*##\s*destination\s*overview\s*:?\s*$", "## Destination Overview"),
         (
-            r"(?im)^\s*validation\s*summary\s*:",
-            "Validation Summary: Budget status, Assumptions, Risk factors",
+            r"(?im)^\s*##\s*budget\s*breakdown\s*:?\s*$",
+            "## Budget Breakdown",
+        ),
+        (r"(?im)^\s*##\s*day-wise\s*itinerary\s*:?\s*$", "## Day-wise Itinerary"),
+        (
+            r"(?im)^\s*##\s*validation\s*summary\s*:?\s*$",
+            "## Validation Summary\n- Budget status: <Under / At / Over budget>\n- Assumptions: <key assumptions>\n- Risk factors: <key risks>",
         ),
     ]
 
@@ -67,6 +75,19 @@ def _ensure_required_output_sections(inputs: dict) -> None:
     if missing_lines:
         suffix = ("\n\n" if content.strip() else "") + "\n".join(missing_lines) + "\n"
         output_path.write_text(content + suffix, encoding="utf-8")
+
+
+def _ensure_execution_log_file() -> None:
+   
+    log_path = Path("logs/execution.log")
+    txt_log_path = Path("logs/execution.log")
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    if log_path.exists():
+        return
+    if txt_log_path.exists():
+        log_path.write_text(txt_log_path.read_text(encoding="utf-8"), encoding="utf-8")
+        return
+    log_path.write_text("", encoding="utf-8")
 
 
 def _parse_trip_days(travel_dates: str) -> int:
@@ -108,18 +129,18 @@ def _build_inputs_from_args() -> dict:
 
         print("Enter travel planner inputs (press Enter to keep default/example value):")
         destination = (
-            input(f"Destination [example: Bali, Indonesia] ({default_destination}): ").strip()
+            input(f"Destination [example: Bali, Indonesia]: ").strip()
             or default_destination
         )
         travel_dates = (
-            input(f"Travel Dates [example: 2026-06-10 to 2026-06-14] ({default_dates}): ").strip()
+            input(f"Travel Dates [example: 2026-06-10 to 2026-06-14]: ").strip()
             or default_dates
         )
-        budget_str = input(f"Budget [example: 900] ({default_budget}): ").strip()
-        currency = input(f"Currency [example: USD] ({default_currency}): ").strip() or default_currency
+        budget_str = input(f"Budget [example: 900]: ").strip()
+        currency = input(f"Currency [example: USD]: ").strip() or default_currency
         preferences = (
             input(
-                f"Preferences [example: beaches, local food, temples] ({default_preferences}): "
+                f"Preferences [example: beaches, local food, temples]: "
             ).strip()
             or default_preferences
         )
@@ -216,15 +237,23 @@ def _check_quota(inputs: dict) -> None:
             "Try again tomorrow or reduce token usage."
         )
     if used_minute_requests + requests_per_run > HARD_LIMITS["rpm"]:
-        raise Exception(
-            f"Per-minute request limit reached: {used_minute_requests}/{HARD_LIMITS['rpm']}. "
-            "Wait a minute and retry."
+        # Throttle until next minute window to avoid hard-failing on RPM.
+        seconds_to_next_minute = max(1, 60 - datetime.now().second)
+        print(
+            f"Per-minute request limit near cap ({used_minute_requests}/{HARD_LIMITS['rpm']}). "
+            f"Sleeping {seconds_to_next_minute}s to stay within limits..."
         )
+        sleep(seconds_to_next_minute)
+        return _check_quota(inputs)
     if used_minute_tokens + tokens_per_run > HARD_LIMITS["tpm"]:
-        raise Exception(
-            f"Per-minute token limit reached: {used_minute_tokens}/{HARD_LIMITS['tpm']}. "
-            "Wait a minute and retry."
+        # Throttle until next minute window to avoid hard-failing on TPM.
+        seconds_to_next_minute = max(1, 60 - datetime.now().second)
+        print(
+            f"Per-minute token limit near cap ({used_minute_tokens}/{HARD_LIMITS['tpm']}). "
+            f"Sleeping {seconds_to_next_minute}s to stay within limits..."
         )
+        sleep(seconds_to_next_minute)
+        return _check_quota(inputs)
 
 
 def _record_usage(inputs: dict) -> None:
@@ -298,6 +327,7 @@ def run():
         result = _kickoff_with_backoff(inputs)
         _record_usage(inputs)
         _ensure_required_output_sections(inputs)
+        _ensure_execution_log_file()
         print(result)
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
@@ -349,6 +379,7 @@ def run_with_trigger():
         result = _kickoff_with_backoff(inputs)
         _record_usage(inputs)
         _ensure_required_output_sections(inputs)
+        _ensure_execution_log_file()
         return result
     except Exception as e:
         raise Exception(f"An error occurred while running the crew with trigger: {e}")
