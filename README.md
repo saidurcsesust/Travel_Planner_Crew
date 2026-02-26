@@ -19,23 +19,23 @@ This project implements a **multi-agent AI Travel Planner** using:
 ## Agents
 
 1. Destination Researcher
-- Uses Serper web search to gather attractions, transport notes, and practical caveats.
+    - Uses Serper web search to gather attractions, transport notes, and practical caveats.
 
 2. Budget Planner
-- Uses custom calculator tool to compute accommodation, food, transport, activities, and contingency.
+    - Uses custom calculator tool to compute accommodation, food, transport, activities, and contingency.
 
 3. Itinerary Designer
-- Builds realistic day-wise plans with no obvious schedule conflicts.
+    - Builds realistic day-wise plans with no obvious schedule conflicts.
 
 4. Validation Agent
-- Verifies consistency, feasibility, and budget alignment.
-- Produces final structured output.
+    - Verifies consistency, feasibility, and budget alignment.
+    - Produces final structured output.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    U[User Input] --> M[Crew Manager / Orchestrator]
+    U[User Input] --> M[Crew Manager]
     M --> R[Destination Researcher\nSerperDevTool]
     M --> B[Budget Planner\nCalculator Tool]
     M --> I[Itinerary Designer]
@@ -55,34 +55,52 @@ flowchart LR
 
 ## Setup
 
-1. Install dependencies:
+1. Clone the repository:
+```bash
+git clone https://github.com/saidurcsesust/Travel_Planner_Crew.git
+cd Travel_Planner_Crew
+```
+
+2. Install `uv` (if not already installed):
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+3. Create virtual environment and install dependencies:
 ```bash
 uv sync
 ```
 
-2. Configure `.env` (required):
+4. Configure environment variables:
 ```bash
-MODEL=groq/meta-llama/llama-prompt-guard-2-86m
+cp .env.example .env
+```
+If `.env.example` is not present, create `.env` manually with:
+```bash
+MODEL=groq/llama-3.3-70b-versatile
 GROQ_API_KEY=your_groq_key
 SERPER_API_KEY=your_serper_key
+LLM_MAX_TOKENS=700
+LLM_RPM_LIMIT=30
 ```
 
 ## Run
 
 Default run:
 ```bash
-crewai run
+uv run crewai run
 ```
 
-Run with explicit travel input:
+Run with explicit trip inputs:
 ```bash
-python -m bot.main \
+uv run crewai run \
   --destination "Bali, Indonesia" \
   --travel-dates "2026-06-10 to 2026-06-14" \
-  --budget 900 \
+  --budget 2000 \
   --currency USD \
   --preferences "beaches, local food, temples, low-cost activities"
 ```
+
 
 ## Input and Output
 
@@ -90,7 +108,7 @@ python -m bot.main \
 
 - Destination: Bali, Indonesia
 - Travel Dates: 2026-06-10 to 2026-06-14
-- Budget: 900 USD
+- Budget: 2000 USD
 - Preferences: beaches, local food, temples, low-cost activities
 
 ### Output Files
