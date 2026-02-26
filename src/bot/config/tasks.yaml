@@ -1,0 +1,115 @@
+destination_research_task:
+  description: >
+    Use only Serper-powered web search to research {destination} for dates {travel_dates}.
+    Focus on: top attractions, realistic local transport options, food areas, and date-specific
+    caveats (closures, weather implications, crowd levels if available). Prioritize results that
+    are relevant to the user's preferences: {preferences}.
+
+    Rules:
+    - Use at most 1-2 Serper searches unless information is missing.
+    - Do not invent attractions or details.
+    - If a fact is uncertain, explicitly label it as an assumption.
+    - Provide concise source references (domain names or URLs) for major claims.
+    - Keep response short to reduce token usage.
+  expected_output: >
+    Markdown section "Destination Overview" with:
+    1) Top highlights (max 4 bullet points)
+    2) Practical notes (transport, timing, caveats)
+  agent: destination_researcher
+
+budget_planner_task:
+  description: >
+    Using destination research context, estimate a realistic trip budget for {destination}
+    within total budget {budget} {currency} for {trip_days} days.
+
+    Requirements:
+    - Use calculator logic for all arithmetic.
+    - Include category-wise costs: Accommodation, Food, Transport, Activities, Contingency.
+    - Show per-day and total estimates.
+    - Avoid fake precision; if uncertain, provide conservative ranges and assumptions.
+    - State whether the plan is under, at, or over budget.
+    - Keep explanation concise (max ~120 words excluding table).
+  expected_output: >
+    Markdown section "Budget Breakdown" in this exact table format:
+    | Category | Estimated Cost | Rationale |
+    | --- | ---: | --- |
+    | Accommodation | <amount> | <short note> |
+    | Food | <amount> | <short note> |
+    | Transport | <amount> | <short note> |
+    | Activities | <amount> | <short note> |
+    | Contingency | <amount> | <short note> |
+    | Subtotal | <amount> | Sum before contingency (if contingency shown separately) |
+    | Grand Total | <amount> | Final total trip estimate |
+    | Budget Status | Under / At / Over budget | Compared with {budget} {currency} |
+  agent: budget_planner
+
+itinerary_designer_task:
+  description: >
+    Create a day-wise itinerary for {destination} from {travel_dates} aligned to
+    preferences "{preferences}" and budget constraints from context.
+
+    Requirements:
+    - One realistic plan per day with short morning/afternoon/evening blocks.
+    - Avoid time/place conflicts and excessive commuting.
+    - Include at least one low-cost option each day.
+    - Mention estimated daily spend and how it fits the budget in one line.
+    - Keep total itinerary concise.
+  expected_output: >
+    Markdown section "Day-wise Itinerary" with Day 1..Day N blocks,
+    activity timing notes, and per-day estimated spend.
+  agent: itinerary_designer
+
+validation_task:
+  description: >
+    Validate the destination overview, budget plan, and itinerary for consistency,
+    feasibility, and budget alignment.
+
+    Validation checklist:
+    - Budget totals are internally consistent.
+    - Itinerary activities are plausible for each day and not conflicting.
+    - Assumptions and uncertainties are clearly called out.
+    - If total exceeds budget, propose concrete adjustments.
+
+    Then produce one final structured markdown output with sections:
+    - Travel Plan: {destination}
+    - Budget Breakdown: Accommodation, Food, Transport, Activities, Total
+    - Day-wise Itinerary
+    - Validation Summary: Budget status, Assumptions, Risk factors
+  expected_output: >
+    Single final markdown document in an attractive, clean format using:
+    - Clear H1/H2 headings
+    - Horizontal separators (---) between major sections
+    - Compact tables for budget and validation details
+    - Short bullets (no long paragraphs)
+
+    Use this exact structure:
+    # Travel Plan: <Destination>
+    > Trip Window: <travel_dates>
+    > Budget Cap: <budget> <currency>
+    ---
+    ## Budget Breakdown
+    | Category | Amount | Note |
+    | --- | ---: | --- |
+    | Accommodation | <amount> | <short note> |
+    | Food | <amount> | <short note> |
+    | Transport | <amount> | <short note> |
+    | Activities | <amount> | <short note> |
+    | Total | <amount> | <short note> |
+    ---
+    ## Day-wise Itinerary
+    ### Day 1: <date>
+    - Morning: ...
+    - Afternoon: ...
+    - Evening: ...
+    - Estimated spend: ...
+    ### Day 2..Day N: same format
+    ---
+    ## Validation Summary
+    | Check | Result |
+    | --- | --- |
+    | Budget status | Under / At / Over budget |
+    | Assumptions | <key assumptions> |
+    | Risk factors | <key risks> |
+    Keep the final answer concise and visually neat.
+  agent: validation_agent
+  output_file: output.md

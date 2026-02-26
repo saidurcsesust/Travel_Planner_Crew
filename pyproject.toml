@@ -1,0 +1,28 @@
+[project]
+name = "bot"
+version = "0.1.0"
+description = "bot using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "apscheduler>=3.11.2",
+    "crewai[google-genai,tools]==1.9.3",
+    "email-validator>=2.3.0",
+    "fastapi>=0.133.1",
+    "litellm>=1.75.3",
+]
+
+[project.scripts]
+bot = "bot.main:run"
+run_crew = "bot.main:run"
+train = "bot.main:train"
+replay = "bot.main:replay"
+test = "bot.main:test"
+run_with_trigger = "bot.main:run_with_trigger"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
