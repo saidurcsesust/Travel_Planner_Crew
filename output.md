@@ -1,58 +1,66 @@
-# Travel Plan: Saudi Arab 
-> Trip Window: 2026-04-10 - 2026-04-14 
-> Budget Cap: $1500 USD 
+# Travel Plan: Saudi Arabia 
+> Trip Window: 2026-04-10 to 2026-04-14 
+> Budget Cap: 5000.00 USD 
+
 ---
 ## Destination Overview
 - Highlights:
-  * Visit the mountains near Abha for natural attractions and cycle tours
-  * Explore the ancient streets of AlUla Old Town
-  * Discover the UNESCO-listed Hegra with its 94 monumental Nabatean tombs
-  * Experience Riyadh like a local by visiting hidden gems, markets, and local workshops
+  * Al Masjid an Nabawi
+  * Kingdom Centre Tower
+  * Historic Sites
+  * Night Tours
 - Practical notes:
-  * Transport: guided hiking and dinner tours, hop-on hop-off bus tours, budget-friendly trekking experiences
-  * Timing: check for seasonal and holiday activities, such as the Saudi Founding Day 2026
-  * Caveats: be aware of crowd levels and plan accordingly
-  * Food areas: try local cuisine and drinks, and explore international options
+  * Transport: Local transport options not specified
+  * Timing and caveats: No information on closures or weather implications
+  * Food areas: Diverse food options available, but specific areas not mentioned
+
 ---
 ## Budget Breakdown
 | Category | Amount | Note |
 | --- | ---: | --- |
-| Accommodation | $600 | Average $120 per night for 5 nights |
-| Food | $400 | Average $80 per day for meals and snacks |
-| Transport | $200 | Budget-friendly tours and transportation |
-| Activities | $300 | Entrance fees, guided tours, and local experiences |
-| Total | $1500 | Fits the budget cap |
+| Accommodation | 2000.00 | 40% of total budget for 5 days |
+| Food | 1000.00 | 20% of total budget for 5 days |
+| Transport | 500.00 | 10% of total budget for 5 days |
+| Activities | 1000.00 | 20% of total budget for 5 days |
+| Contingency | 500.00 | 10% of total budget for unexpected expenses |
+| Total | 5000.00 | Final total trip estimate |
+
 ---
 ## Day-wise Itinerary
 ### Day 1: 2026-04-10
-- Morning: Explore AlUla Old Town
-- Afternoon: Visit the UNESCO-listed Hegra
-- Evening: Enjoy local cuisine and drinks
-- Estimated spend: $300
+- Morning: Visit Al Masjid an Nabawi
+- Afternoon: Explore local food scene
+- Evening: Stroll around the city
+- Estimated spend: $50
+
 ### Day 2: 2026-04-11
-- Morning: Budget-friendly trekking experience near Abha
-- Afternoon: Visit the local market
-- Evening: Guided dinner tour in Riyadh
-- Estimated spend: $250
+- Morning: Visit Kingdom Centre Tower
+- Afternoon: Walk to a nearby historic site or museum
+- Evening: Low-cost dinner and neighborhood exploration
+- Estimated spend: $40
+
 ### Day 3: 2026-04-12
-- Morning: Explore hidden gems of Riyadh
-- Afternoon: Hop-on hop-off bus tour
-- Evening: International cuisine at a local restaurant
-- Estimated spend: $280
+- Morning: Guided walking tour
+- Afternoon: Visit a local market or bazaar
+- Evening: Relax at accommodation or short walk
+- Estimated spend: $50
+
 ### Day 4: 2026-04-13
-- Morning: Cycle tour and natural attractions near Abha
-- Afternoon: Low-cost tour to explore local culture
-- Evening: Relax at a traditional coffee shop
-- Estimated spend: $220
+- Morning: Visit a significant cultural or historical site
+- Afternoon: Try traditional Saudi coffee or tea
+- Evening: Low-cost dinner and evening atmosphere
+- Estimated spend: $40
+
 ### Day 5: 2026-04-14
-- Morning: Explore the local food scene
-- Afternoon: Visit a local museum
-- Evening: Farewell dinner at a traditional restaurant
-- Estimated spend: $250
+- Morning: Low-cost city tour
+- Afternoon: Spend time at a local park or garden
+- Evening: Farewell dinner at a mid-range restaurant
+- Estimated spend: $60
+
 ---
 ## Validation Summary
 | Check | Result |
 | --- | --- |
 | Budget status | At budget |
-| Assumptions | Average costs, budget-friendly options |
-| Risk factors | Crowd levels, seasonal activities, accommodation availability |
+| Assumptions | Local transport costs are minimal, food prices remain stable, and entry fees do not exceed estimates |
+| Risk factors | Unforeseen entry fee increases, unexpected transport costs, and personal spending exceeding daily allocations |

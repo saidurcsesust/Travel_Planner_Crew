@@ -15,6 +15,7 @@ class TravelBudgetCalculatorInput(BaseModel):
     activities_ratio: float = Field(..., ge=0, le=1)
     contingency_ratio: float = Field(default=0.1, ge=0, le=1)
 
+    # Ensure selected ratios cannot over-allocate the total budget.
     @model_validator(mode="after")
     def validate_ratios(self) -> "TravelBudgetCalculatorInput":
         ratio_sum = (
@@ -37,6 +38,7 @@ class TravelBudgetCalculatorTool(BaseTool):
     )
     args_schema: Type[BaseModel] = TravelBudgetCalculatorInput
 
+    # Compute category allocations and return a compact JSON string for downstream parsing.
     def _run(
         self,
         total_budget: float,
@@ -47,6 +49,7 @@ class TravelBudgetCalculatorTool(BaseTool):
         activities_ratio: float,
         contingency_ratio: float = 0.1,
     ) -> str:
+        # Core category allocations from configured ratios.
         accommodation = total_budget * accommodation_ratio
         food = total_budget * food_ratio
         transport = total_budget * transport_ratio
@@ -55,6 +58,7 @@ class TravelBudgetCalculatorTool(BaseTool):
         allocated = accommodation + food + transport + activities + contingency
         unallocated = total_budget - allocated
 
+        # Defensive fallback prevents division-by-zero if invalid inputs slip through.
         safe_divisor = trip_days if trip_days > 0 else 1
 
         return (

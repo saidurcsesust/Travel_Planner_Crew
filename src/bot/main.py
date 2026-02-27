@@ -16,6 +16,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 logging.getLogger("LiteLLM").setLevel(logging.CRITICAL)
 logging.getLogger("litellm").setLevel(logging.CRITICAL)
 
+# Hard provider caps enforced regardless of environment overrides.
 HARD_LIMITS = {
     "rpm": 30,
     "rpd": 14400,
@@ -24,6 +25,7 @@ HARD_LIMITS = {
 }
 
 
+# Create a starter output skeleton on first run.
 def _ensure_output_file_exists() -> None:
     """Auto-create output.md when missing."""
     output_path = Path("output.md")
@@ -44,11 +46,13 @@ def _ensure_output_file_exists() -> None:
     )
 
 
+# Clear previous report so each run writes a fresh final document.
 def _reset_final_output_file() -> None:
     """Ensure final report always overwrites previous content."""
     Path("output.md").write_text("", encoding="utf-8")
 
 
+# Ensure required top-level sections exist even if LLM output is partial.
 def _ensure_required_output_sections(inputs: dict) -> None:
     """Guarantee required sections exist in output.md."""
     output_path = Path("output.md")
@@ -71,12 +75,64 @@ def _ensure_required_output_sections(inputs: dict) -> None:
         ),
     ]
 
+    # Append only the sections that are absent.
     missing_lines = [line for pattern, line in required_sections if not re.search(pattern, content)]
     if missing_lines:
         suffix = ("\n\n" if content.strip() else "") + "\n".join(missing_lines) + "\n"
         output_path.write_text(content + suffix, encoding="utf-8")
 
 
+# Parse numeric totals from markdown budget rows.
+def _extract_budget_total_from_markdown(content: str) -> float | None:
+    """Extract budget total from markdown table rows when available."""
+    # Prefer Grand Total if present, otherwise use Total.
+    for label in ("Grand Total", "Total"):
+        pattern = rf"(?im)^\|\s*{re.escape(label)}\s*\|\s*([^|]+?)\s*\|"
+        match = re.search(pattern, content)
+        if not match:
+            continue
+        amount_text = re.sub(r"[^\d.\-]", "", match.group(1))
+        if not amount_text:
+            continue
+        try:
+            return float(amount_text)
+        except ValueError:
+            continue
+    return None
+
+
+# Fill unresolved validation placeholders with concrete defaults.
+def _upsert_validation_summary(content: str, inputs: dict) -> str:
+    """Replace placeholder validation values with concrete defaults."""
+    total_estimate = _extract_budget_total_from_markdown(content)
+    budget_cap = float(inputs.get("budget", 0))
+
+    # Derive budget status from computed total vs user budget cap.
+    status = "Unknown"
+    if total_estimate is not None and budget_cap > 0:
+        if total_estimate < budget_cap:
+            status = "Under budget"
+        elif total_estimate > budget_cap:
+            status = "Over budget"
+        else:
+            status = "At budget"
+
+    replacements = {
+        r"(?im)^- Budget status:\s*<[^>]+>\s*$": f"- Budget status: {status}",
+        r"(?im)^- Assumptions:\s*<[^>]+>\s*$": "- Assumptions: Cost estimates may vary by season, availability, and booking timing.",
+        r"(?im)^- Risk factors:\s*<[^>]+>\s*$": "- Risk factors: Price fluctuations, attraction closures, and transport delays can affect this plan.",
+        r"(?im)^\|\s*Budget status\s*\|\s*<[^>]+>\s*\|\s*$": f"| Budget status | {status} |",
+        r"(?im)^\|\s*Assumptions\s*\|\s*<[^>]+>\s*\|\s*$": "| Assumptions | Cost estimates may vary by season, availability, and booking timing. |",
+        r"(?im)^\|\s*Risk factors\s*\|\s*<[^>]+>\s*\|\s*$": "| Risk factors | Price fluctuations, attraction closures, and transport delays can affect this plan. |",
+    }
+
+    updated = content
+    for pattern, replacement in replacements.items():
+        updated = re.sub(pattern, replacement, updated)
+    return updated
+
+
+# Keep execution log file available for external tooling/hooks.
 def _ensure_execution_log_file() -> None:
    
     log_path = Path("logs/execution.log")
@@ -90,6 +146,7 @@ def _ensure_execution_log_file() -> None:
     log_path.write_text("", encoding="utf-8")
 
 
+# Convert date-range input into inclusive trip-day count.
 def _parse_trip_days(travel_dates: str) -> int:
     """Parse `YYYY-MM-DD to YYYY-MM-DD`; return inclusive day count with safe fallback."""
     try:
@@ -105,6 +162,7 @@ def _parse_trip_days(travel_dates: str) -> int:
         return 3
 
 
+# Build normalized runtime inputs from args/env/interactive prompts.
 def _build_inputs_from_args() -> dict:
     parser = argparse.ArgumentParser(description="Run AI Travel Planner crew")
     parser.add_argument("--destination", default=os.getenv("TRAVEL_DESTINATION", "Kyoto, Japan"))
@@ -119,6 +177,7 @@ def _build_inputs_from_args() -> dict:
 
     args, _ = parser.parse_known_args()
 
+    # Auto-enable prompt mode when launched manually without flags.
     auto_interactive = len(sys.argv) == 1 and sys.stdin.isatty()
     if args.interactive or auto_interactive:
         default_destination = args.destination
@@ -168,12 +227,14 @@ def _build_inputs_from_args() -> dict:
     }
 
 
+# Resolve and create quota state path.
 def _quota_file() -> Path:
     path = Path("logs/quota_usage.json")
     path.parent.mkdir(parents=True, exist_ok=True)
     return path
 
 
+# Load persisted quota counters with safe defaults.
 def _load_quota_state() -> dict:
     path = _quota_file()
     if not path.exists():
@@ -188,10 +249,12 @@ def _load_quota_state() -> dict:
     }
 
 
+# Persist quota counters after each successful run.
 def _save_quota_state(state: dict) -> None:
     _quota_file().write_text(json.dumps(state, indent=2), encoding="utf-8")
 
 
+# Rough token estimate to guard against hard TPM limits.
 def _estimate_tokens_for_inputs(inputs: dict) -> int:
     payload_size = len(json.dumps(inputs))
     estimated = max(800, payload_size // 2)
@@ -199,10 +262,12 @@ def _estimate_tokens_for_inputs(inputs: dict) -> int:
     return min(configured, HARD_LIMITS["tpm"])
 
 
+# Apply configured limits while respecting hard caps.
 def _effective_limit(env_name: str, hard_cap: int) -> int:
     return min(int(os.getenv(env_name, str(hard_cap))), hard_cap)
 
 
+# Enforce daily/per-minute request and token budgets.
 def _check_quota(inputs: dict) -> None:
     requests_per_run = _effective_limit("LLM_EST_REQUESTS_PER_RUN", HARD_LIMITS["rpm"])
     tokens_per_run = _estimate_tokens_for_inputs(inputs)
@@ -226,6 +291,7 @@ def _check_quota(inputs: dict) -> None:
     used_minute_requests = int(minute_entry.get("requests", 0))
     used_minute_tokens = int(minute_entry.get("tokens", 0))
 
+    # Fail fast for daily limits.
     if used_daily_requests + requests_per_run > daily_limit:
         raise Exception(
             f"Daily LLM request limit reached: {used_daily_requests}/{daily_limit}. "
@@ -236,6 +302,7 @@ def _check_quota(inputs: dict) -> None:
             f"Daily LLM token limit reached: {used_daily_tokens}/{daily_token_limit}. "
             "Try again tomorrow or reduce token usage."
         )
+    # Soft-throttle minute limits instead of failing immediately.
     if used_minute_requests + requests_per_run > HARD_LIMITS["rpm"]:
         # Throttle until next minute window to avoid hard-failing on RPM.
         seconds_to_next_minute = max(1, 60 - datetime.now().second)
@@ -256,6 +323,7 @@ def _check_quota(inputs: dict) -> None:
         return _check_quota(inputs)
 
 
+# Record estimated usage into daily and minute windows.
 def _record_usage(inputs: dict) -> None:
     requests_per_run = _effective_limit("LLM_EST_REQUESTS_PER_RUN", HARD_LIMITS["rpm"])
     tokens_per_run = _estimate_tokens_for_inputs(inputs)
@@ -282,11 +350,13 @@ def _record_usage(inputs: dict) -> None:
     _save_quota_state(state)
 
 
+# Detect provider rate-limit style failures.
 def _is_rate_limit_error(err: Exception) -> bool:
     message = str(err).lower()
     return "429" in message or "rate limit" in message or "quota" in message
 
 
+# Extract provider-advised retry wait when available.
 def _extract_retry_seconds(message: str) -> int | None:
     # Matches provider hints like "try again in 8.57s".
     match = re.search(r"try again in\s+([0-9]+(?:\.[0-9]+)?)s", message.lower())
@@ -298,6 +368,7 @@ def _extract_retry_seconds(message: str) -> int | None:
         return None
 
 
+# Retry kickoff with exponential backoff on rate-limit errors.
 def _kickoff_with_backoff(inputs: dict):
     max_attempts = int(os.getenv("LLM_MAX_RETRIES", "3"))
     initial_sleep = int(os.getenv("LLM_BACKOFF_SECONDS", "10"))
@@ -317,6 +388,7 @@ def _kickoff_with_backoff(inputs: dict):
     raise Exception(f"Crew kickoff failed after retries: {last_error}")
 
 
+# Primary local entrypoint for standard runs.
 def run():
     """Run the travel planner crew."""
     _ensure_output_file_exists()
@@ -327,12 +399,19 @@ def run():
         result = _kickoff_with_backoff(inputs)
         _record_usage(inputs)
         _ensure_required_output_sections(inputs)
+        # Final cleanup pass to replace unresolved placeholders.
+        output_path = Path("output.md")
+        output_path.write_text(
+            _upsert_validation_summary(output_path.read_text(encoding="utf-8"), inputs),
+            encoding="utf-8",
+        )
         _ensure_execution_log_file()
         print(result)
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 
 
+# CrewAI training mode entrypoint.
 def train():
     """Train the crew for a given number of iterations."""
     inputs = _build_inputs_from_args()
@@ -342,6 +421,7 @@ def train():
         raise Exception(f"An error occurred while training the crew: {e}")
 
 
+# Replay a prior run from a selected task id.
 def replay():
     """Replay the crew execution from a specific task."""
     try:
@@ -350,6 +430,7 @@ def replay():
         raise Exception(f"An error occurred while replaying the crew: {e}")
 
 
+# CrewAI test mode entrypoint.
 def test():
     """Test crew execution and return the results."""
     inputs = _build_inputs_from_args()
@@ -359,6 +440,7 @@ def test():
         raise Exception(f"An error occurred while testing the crew: {e}")
 
 
+# Trigger-based entrypoint for automation/webhook flows.
 def run_with_trigger():
     """Run the crew with trigger payload."""
     _ensure_output_file_exists()
@@ -370,6 +452,7 @@ def run_with_trigger():
     except json.JSONDecodeError:
         raise Exception("Invalid JSON payload provided as argument")
 
+    # Merge trigger payload into the same input envelope.
     inputs = _build_inputs_from_args()
     inputs["crewai_trigger_payload"] = trigger_payload
 
@@ -379,6 +462,11 @@ def run_with_trigger():
         result = _kickoff_with_backoff(inputs)
         _record_usage(inputs)
         _ensure_required_output_sections(inputs)
+        output_path = Path("output.md")
+        output_path.write_text(
+            _upsert_validation_summary(output_path.read_text(encoding="utf-8"), inputs),
+            encoding="utf-8",
+        )
         _ensure_execution_log_file()
         return result
     except Exception as e:

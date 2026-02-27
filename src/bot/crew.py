@@ -17,6 +17,7 @@ class Bot:
     tasks: List[Task]
     HARD_MAX_RPM = 30
 
+    # Read required env vars centrally to fail with clear errors.
     @staticmethod
     def _require_env(name: str) -> str:
         value = os.getenv(name)
@@ -24,6 +25,7 @@ class Bot:
             raise ValueError(f"Missing required environment variable: {name}")
         return value
 
+    # Build the shared LLM client for all agents.
     def _llm(self) -> LLM:
         model = self._require_env("MODEL")
         api_key = self._require_env("GROQ_API_KEY")
@@ -31,10 +33,12 @@ class Bot:
             raise ValueError("MODEL is set to a Prompt-Guard classifier. Use a Groq generative model with tool-calling (example: groq/llama-3.3-70b-versatile).")
         return LLM(model=model, api_key=api_key, temperature=0.1, max_tokens=int(os.getenv("LLM_MAX_TOKENS", "700")))
 
+    # Enforce hard per-minute request ceiling for the crew.
     def _max_rpm(self) -> int:
         configured = int(os.getenv("LLM_RPM_LIMIT", str(self.HARD_MAX_RPM)))
         return min(configured, self.HARD_MAX_RPM)
 
+    # Research agent with live web search tool.
     @agent
     def destination_researcher(self) -> Agent:
         self._require_env("SERPER_API_KEY")
@@ -48,6 +52,7 @@ class Bot:
             verbose=True,
         )
 
+    # Budget agent with calculator tool for deterministic arithmetic.
     @agent
     def budget_planner(self) -> Agent:
         return Agent(
@@ -60,6 +65,7 @@ class Bot:
             verbose=True,
         )
 
+    # Itinerary agent focused on scheduling and pacing.
     @agent
     def itinerary_designer(self) -> Agent:
         return Agent(
@@ -71,6 +77,7 @@ class Bot:
             verbose=True,
         )
 
+    # Final QA/validator agent producing structured output.
     @agent
     def validation_agent(self) -> Agent:
         return Agent(
@@ -82,18 +89,22 @@ class Bot:
             verbose=True,
         )
 
+    # Task: destination research.
     @task
     def destination_research_task(self) -> Task:
         return Task(config=self.tasks_config["destination_research_task"])  # type: ignore[index]
 
+    # Task: budget plan.
     @task
     def budget_planner_task(self) -> Task:
         return Task(config=self.tasks_config["budget_planner_task"])  # type: ignore[index]
 
+    # Task: day-wise itinerary.
     @task
     def itinerary_designer_task(self) -> Task:
         return Task(config=self.tasks_config["itinerary_designer_task"])  # type: ignore[index]
 
+    # Task: final validation and file output.
     @task
     def validation_task(self) -> Task:
         return Task(
@@ -110,6 +121,7 @@ class Bot:
         itinerary_task = self.itinerary_designer_task()
         validation_task = self.validation_task()
 
+        # Wire task dependencies so downstream tasks reuse prior outputs.
         budget_task.context = [destination_task]
         itinerary_task.context = [destination_task, budget_task]
         validation_task.context = [destination_task, budget_task, itinerary_task]

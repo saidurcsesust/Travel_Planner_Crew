@@ -112,9 +112,9 @@ validation_task:
     ## Validation Summary
     | Check | Result |
     | --- | --- |
-    | Budget status | Under / At / Over budget |
-    | Assumptions | <key assumptions> |
-    | Risk factors | <key risks> |
+    | Budget status | <choose exactly one: Under budget / At budget / Over budget> |
+    | Assumptions | <2-4 concrete assumptions from the plan, not placeholders> |
+    | Risk factors | <2-4 concrete risks from the plan, not placeholders> |
     Keep the final answer concise and visually neat.
   agent: validation_agent
   output_file: output.md
