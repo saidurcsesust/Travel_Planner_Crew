@@ -72,16 +72,11 @@ uv sync
 ```
 
 4. Configure environment variables:
+Create `.env` manually with:
 ```bash
-cp .env.example .env
-```
-If `.env.example` is not present, create `.env` manually with:
-```bash
-MODEL=groq/llama-3.3-70b-versatile
+MODEL=groq/llama-3.3-70b-versatile 
 GROQ_API_KEY=your_groq_key
 SERPER_API_KEY=your_serper_key
-LLM_MAX_TOKENS=700
-LLM_RPM_LIMIT=30
 ```
 
 ## Run
