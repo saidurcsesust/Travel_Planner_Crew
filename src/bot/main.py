@@ -350,6 +350,52 @@ def _record_usage(inputs: dict) -> None:
     _save_quota_state(state)
 
 
+# Normalize token usage metrics returned by CrewAI kickoff output.
+def _extract_token_usage(result) -> dict | None:
+    usage = getattr(result, "token_usage", None)
+    if usage is None:
+        return None
+
+    total_tokens = int(getattr(usage, "total_tokens", 0) or 0)
+    prompt_tokens = int(getattr(usage, "prompt_tokens", 0) or 0)
+    completion_tokens = int(getattr(usage, "completion_tokens", 0) or 0)
+    cached_prompt_tokens = int(getattr(usage, "cached_prompt_tokens", 0) or 0)
+    successful_requests = int(getattr(usage, "successful_requests", 0) or 0)
+
+    if total_tokens <= 0 and prompt_tokens <= 0 and completion_tokens <= 0:
+        return None
+
+    return {
+        "total_tokens": total_tokens,
+        "prompt_tokens": prompt_tokens,
+        "completion_tokens": completion_tokens,
+        "cached_prompt_tokens": cached_prompt_tokens,
+        "successful_requests": successful_requests,
+    }
+
+
+# Print token metrics in CLI output after crew completion.
+def _print_token_usage_summary(result, inputs: dict) -> None:
+    usage = _extract_token_usage(result)
+    if usage:
+        print(
+            "Token usage | "
+            f"total={usage['total_tokens']} "
+            f"prompt={usage['prompt_tokens']} "
+            f"completion={usage['completion_tokens']} "
+            f"cached_prompt={usage['cached_prompt_tokens']} "
+            f"requests={usage['successful_requests']}"
+        )
+        return
+
+    estimated_tokens = _estimate_tokens_for_inputs(inputs)
+    print(
+        "Token usage | "
+        f"estimated_total={estimated_tokens} "
+        "(provider did not return usage metrics)"
+    )
+
+
 # Detect provider rate-limit style failures.
 def _is_rate_limit_error(err: Exception) -> bool:
     message = str(err).lower()
@@ -407,6 +453,7 @@ def run():
         )
         _ensure_execution_log_file()
         print(result)
+        _print_token_usage_summary(result, inputs)
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 
@@ -468,6 +515,7 @@ def run_with_trigger():
             encoding="utf-8",
         )
         _ensure_execution_log_file()
+        _print_token_usage_summary(result, inputs)
         return result
     except Exception as e:
         raise Exception(f"An error occurred while running the crew with trigger: {e}")
